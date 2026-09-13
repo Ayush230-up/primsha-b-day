@@ -1,227 +1,303 @@
-
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Happy Birthday to My Favorite Person! 🌸✨</title>
-  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Happy Birthday! 🌸✨</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
   <style>
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
+      -webkit-tap-highlight-color: transparent;
     }
-    body {
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background: radial-gradient(circle at top left, #ffeef5, #ffd1dc, #fbc2eb);
-      font-family: 'Nunito', sans-serif;
+
+    body, html {
+      width: 100%;
+      height: 100%;
       overflow: hidden;
-      perspective: 1000px;
+      font-family: 'Quicksand', sans-serif;
+      background: #ffe3ec;
     }
 
-    /* Floating ambient shapes */
-    .bubble {
-      position: absolute;
+    /* Ambient glow elements */
+    .glow-sphere {
+      position: fixed;
       border-radius: 50%;
-      background: rgba(255, 255, 255, 0.45);
-      animation: floatUp 8s infinite linear;
+      filter: blur(50px);
+      opacity: 0.6;
       pointer-events: none;
+      z-index: 1;
     }
-    @keyframes floatUp {
-      0% { transform: translateY(110vh) scale(0.8); opacity: 0; }
-      20% { opacity: 0.8; }
-      100% { transform: translateY(-20vh) scale(1.2); opacity: 0; }
+    .glow-1 {
+      width: 250px;
+      height: 250px;
+      background: #ffb8d2;
+      top: -40px;
+      left: -40px;
+    }
+    .glow-2 {
+      width: 300px;
+      height: 300px;
+      background: #c3b5ff;
+      bottom: -60px;
+      right: -60px;
     }
 
-    /* Main Card Container */
-    .card-container {
-      width: 90%;
-      max-width: 440px;
+    /* Page Slider Layout */
+    .screen-slider {
+      display: flex;
+      width: 300vw;
+      height: 100vh;
+      height: 100dvh;
+      transition: transform 0.65s cubic-bezier(0.65, 0, 0.35, 1);
       position: relative;
       z-index: 10;
     }
 
-    .card {
-      background: rgba(255, 255, 255, 0.85);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border-radius: 30px;
-      padding: 35px 25px;
-      text-align: center;
-      border: 2px solid rgba(255, 255, 255, 0.9);
-      box-shadow: 0 20px 45px rgba(244, 114, 182, 0.25), 0 0 0 8px rgba(255, 255, 255, 0.35);
-      transition: transform 0.4s ease;
-      min-height: 480px;
+    .slide {
+      width: 100vw;
+      height: 100vh;
+      height: 100dvh;
       display: flex;
-      flex-direction: column;
       justify-content: center;
       align-items: center;
+      padding: 20px;
     }
 
-    .layer {
-      display: none;
-      opacity: 0;
-      transform: scale(0.92);
-      transition: all 0.5s ease;
+    /* Floating Card */
+    .cute-card {
       width: 100%;
-    }
-    .layer.active {
+      max-width: 380px;
+      background: rgba(255, 255, 255, 0.88);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-radius: 32px;
+      padding: 35px 24px;
+      text-align: center;
+      box-shadow: 0 20px 40px rgba(255, 126, 179, 0.22), 0 0 0 1px rgba(255, 255, 255, 0.9);
       display: flex;
       flex-direction: column;
       align-items: center;
-      opacity: 1;
-      transform: scale(1);
     }
 
-    .sticker {
-      font-size: 4rem;
-      margin-bottom: 12px;
-      animation: bounce 2s infinite ease-in-out;
-      display: inline-block;
+    .emoji-hero {
+      font-size: 3.8rem;
+      line-height: 1;
+      margin-bottom: 15px;
+      animation: gentleBounce 2.4s ease-in-out infinite;
     }
-    @keyframes bounce {
+
+    @keyframes gentleBounce {
       0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-10px) scale(1.05); }
+      50% { transform: translateY(-8px); }
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 6px 14px;
+      background: #ffe8f0;
+      color: #ff4081;
+      border-radius: 50px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      margin-bottom: 14px;
+      text-transform: uppercase;
     }
 
     h1 {
       font-family: 'Fredoka', sans-serif;
-      font-size: 1.85rem;
-      color: #ff477e;
-      margin-bottom: 15px;
-      line-height: 1.3;
+      font-size: 1.75rem;
+      color: #332d3b;
+      margin-bottom: 14px;
+      line-height: 1.25;
     }
 
     p {
-      color: #4a5568;
-      font-size: 1.05rem;
-      line-height: 1.7;
+      color: #595261;
+      font-size: 1rem;
+      line-height: 1.65;
       margin-bottom: 25px;
-      padding: 0 10px;
-    }
-
-    .pill-tag {
-      background: #ffecf2;
-      color: #ff477e;
-      padding: 6px 16px;
-      border-radius: 50px;
-      font-size: 0.85rem;
-      font-weight: 700;
-      margin-bottom: 18px;
-      letter-spacing: 0.5px;
-      text-transform: uppercase;
-      display: inline-block;
+      font-weight: 600;
     }
 
     .btn {
-      background: linear-gradient(135deg, #ff758c 0%, #ff7eb3 100%);
-      color: white;
+      width: 100%;
+      max-width: 250px;
+      padding: 15px 24px;
+      background: linear-gradient(135deg, #ff6b8b, #ff8e53);
+      color: #ffffff;
       border: none;
-      padding: 14px 34px;
-      font-size: 1rem;
-      font-weight: 700;
       border-radius: 50px;
+      font-size: 1.02rem;
+      font-weight: 700;
       cursor: pointer;
-      box-shadow: 0 8px 20px rgba(255, 117, 140, 0.4);
-      transition: all 0.25s ease;
-      outline: none;
-    }
-    .btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 12px 24px rgba(255, 117, 140, 0.5);
-    }
-    .btn:active {
-      transform: scale(0.96);
+      box-shadow: 0 10px 22px rgba(255, 107, 139, 0.38);
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+      touch-action: manipulation;
     }
 
-    /* Floating emojis effect */
-    .particle {
-      position: absolute;
-      pointer-events: none;
-      font-size: 1.4rem;
-      animation: floatParticle 2.5s ease-out forwards;
+    .btn:active {
+      transform: scale(0.96);
+      box-shadow: 0 4px 12px rgba(255, 107, 139, 0.3);
     }
-    @keyframes floatParticle {
-      0% { transform: translateY(0) scale(1); opacity: 1; }
-      100% { transform: translateY(-120px) scale(1.4) rotate(45deg); opacity: 0; }
+
+    /* Page Dots Indicator */
+    .indicators {
+      position: fixed;
+      bottom: 25px;
+      left: 0;
+      right: 0;
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      z-index: 20;
+    }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.5);
+      border: 1px solid rgba(0, 0, 0, 0.05);
+      transition: all 0.3s ease;
+    }
+
+    .dot.active {
+      width: 22px;
+      border-radius: 10px;
+      background: #ff4081;
+    }
+
+    /* Burst Emoji Particles */
+    .burst-item {
+      position: fixed;
+      pointer-events: none;
+      z-index: 9999;
+      animation: burstFloat 2.2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+    }
+
+    @keyframes burstFloat {
+      0% {
+        transform: translate(0, 0) scale(0.6);
+        opacity: 1;
+      }
+      100% {
+        transform: translate(var(--tx), var(--ty)) scale(1.4) rotate(var(--tr));
+        opacity: 0;
+      }
     }
   </style>
 </head>
 <body>
 
-  <!-- Background Ambience -->
-  <div class="bubble" style="width: 80px; height: 80px; left: 10%; animation-duration: 9s;"></div>
-  <div class="bubble" style="width: 50px; height: 50px; left: 80%; animation-duration: 6s; animation-delay: 1s;"></div>
-  <div class="bubble" style="width: 100px; height: 100px; left: 60%; animation-duration: 11s; animation-delay: 2s;"></div>
+  <div class="glow-sphere glow-1"></div>
+  <div class="glow-sphere glow-2"></div>
 
-  <div class="card-container">
-    <div class="card">
-      
-      <!-- Layer 1: The Cute Surprise Knock -->
-      <div class="layer active" id="layer1">
-        <div class="sticker">🎂💌</div>
-        <div class="pill-tag">Special Delivery</div>
-        <h1>Hey, Bestie! ✨</h1>
-        <p>A very special day just began, and there's no way I was going to let it slide without celebrating the sweetest human ever!</p>
-        <button class="btn" onclick="nextLayer(2)">Open Your Gift 🎁</button>
+  <div class="screen-slider" id="slider">
+
+    <!-- Screen 1 -->
+    <div class="slide">
+      <div class="cute-card">
+        <div class="emoji-hero">💌✨</div>
+        <span class="badge">A Quick Reminder</span>
+        <h1>Today Is Special!</h1>
+        <p>Before anyone else says it, I wanted to build this tiny space just to celebrate how incredible you are.</p>
+        <button class="btn" onclick="moveToSlide(1)">Next Page 👉</button>
       </div>
-
-      <!-- Layer 2: The Heartfelt Wish -->
-      <div class="layer" id="layer2">
-        <div class="sticker">💖🥺</div>
-        <div class="pill-tag">A Note For You</div>
-        <h1>Happy Birthday!</h1>
-        <p>Thank you for being my anchor, my safe place, and the brightest spark in my life. You make everything so much lighter just by existing. Never stop being you.</p>
-        <button class="btn" onclick="nextLayer(3)">Make a Wish 🕯️</button>
-      </div>
-
-      <!-- Layer 3: The Grand Celebration -->
-      <div class="layer" id="layer3">
-        <div class="sticker">🧁🎉</div>
-        <div class="pill-tag">Forever & Always</div>
-        <h1>May All Your Dreams Bloom!</h1>
-        <p>Here’s to another year of endless laughs, crazy adventures, and achieving every goal you set your eyes on. Love you tons! 🤍</p>
-        <button class="btn" onclick="triggerCelebration(event)">Shower Hugs & Sparks 🌸</button>
-      </div>
-
     </div>
+
+    <!-- Screen 2 -->
+    <div class="slide">
+      <div class="cute-card">
+        <div class="emoji-hero">🥺🍰</div>
+        <span class="badge">Heartfelt Note</span>
+        <h1>Happy Birthday!</h1>
+        <p>Thank you for bringing so much comfort, fun, and light into every day. You're truly one of a kind, and I'm lucky to have you as my best friend.</p>
+        <button class="btn" onclick="moveToSlide(2)">Final Surprise 🎁</button>
+      </div>
+    </div>
+
+    <!-- Screen 3 -->
+    <div class="slide">
+      <div class="cute-card">
+        <div class="emoji-hero">🎂🎉</div>
+        <span class="badge">Big Wishes</span>
+        <h1>Always Keep Shining</h1>
+        <p>May this year bring you all the peace, happiness, and big wins you've been working so hard for. Have the best birthday ever!</p>
+        <button class="btn" onclick="triggerParty()">Tap For Hugs & Confetti 🫂✨</button>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="indicators">
+    <div class="dot active" id="dot0"></div>
+    <div class="dot" id="dot1"></div>
+    <div class="dot" id="dot2"></div>
   </div>
 
   <script>
-    function nextLayer(layerNum) {
-      document.querySelectorAll('.layer').forEach(l => l.classList.remove('active'));
-      const activeLayer = document.getElementById(`layer${layerNum}`);
-      activeLayer.classList.add('active');
-      createFloatingBatch();
+    const slider = document.getElementById('slider');
+
+    function moveToSlide(index) {
+      slider.style.transform = `translateX(-${index * 100}vw)`;
+      
+      document.querySelectorAll('.dot').forEach((d, i) => {
+        d.classList.toggle('active', i === index);
+      });
+
+      miniSparkle();
     }
 
-    function triggerCelebration(e) {
-      const emojis = ['🌸', '✨', '💖', '🎉', '🍰', '⭐', '🎈'];
-      for (let i = 0; i < 25; i++) {
-        const particle = document.createElement('div');
-        particle.classList.add('particle');
-        particle.innerText = emojis[Math.floor(Math.random() * emojis.length)];
-        particle.style.left = (window.innerWidth / 2 + (Math.random() * 260 - 130)) + 'px';
-        particle.style.top = (window.innerHeight / 2 + (Math.random() * 120 - 60)) + 'px';
-        document.body.appendChild(particle);
+    function triggerParty() {
+      const items = ['🌸', '✨', '💖', '🎂', '🎉', '🫂', '⭐', '🎈'];
+      const count = 40;
 
-        setTimeout(() => particle.remove(), 2500);
+      for (let i = 0; i < count; i++) {
+        setTimeout(() => {
+          const el = document.createElement('div');
+          el.className = 'burst-item';
+          el.innerText = items[Math.floor(Math.random() * items.length)];
+
+          const startX = window.innerWidth / 2;
+          const startY = window.innerHeight * 0.7;
+
+          const angle = Math.random() * 2 * Math.PI;
+          const distance = Math.random() * 220 + 80;
+          const tx = Math.cos(angle) * distance;
+          const ty = Math.sin(angle) * distance - 80;
+          const tr = (Math.random() * 90 - 45) + 'deg';
+
+          el.style.left = startX + 'px';
+          el.style.top = startY + 'px';
+          el.style.setProperty('--tx', tx + 'px');
+          el.style.setProperty('--ty', ty + 'px');
+          el.style.setProperty('--tr', tr);
+          el.style.fontSize = (Math.random() * 1.2 + 1.2) + 'rem';
+
+          document.body.appendChild(el);
+          setTimeout(() => el.remove(), 2200);
+        }, i * 25);
       }
     }
 
-    function createFloatingBatch() {
-      const emojis = ['✨', '💕', '🥳'];
-      for (let i = 0; i < 8; i++) {
-        const p = document.createElement('div');
-        p.classList.add('particle');
-        p.innerText = emojis[Math.floor(Math.random() * emojis.length)];
-        p.style.left = (window.innerWidth / 2 + (Math.random() * 200 - 100)) + 'px';
-        p.style.top = (window.innerHeight / 2 + 50) + 'px';
-        document.body.appendChild(p);
-        setTimeout(() => p.remove(), 2200);
+    function miniSparkle() {
+      const sparks = ['✨', '💕', '🌸'];
+      for (let i = 0; i < 6; i++) {
+        const el = document.createElement('div');
+        el.className = 'burst-item';
+        el.innerText = sparks[Math.floor(Math.random() * sparks.length)];
+        el.style.left = (window.innerWidth / 2 + (Math.random() * 140 - 70)) + 'px';
+        el.style.top = (window.innerHeight * 0.6) + 'px';
+        el.style.setProperty('--tx', (Math.random() * 100 - 50) + 'px');
+        el.style.setProperty('--ty', (-Math.random() * 120 - 40) + 'px');
+        el.style.setProperty('--tr', '15deg');
+        el.style.fontSize = '1.3rem';
+        document.body.appendChild(el);
+        setTimeout(() => el.remove(), 1600);
       }
     }
   </script>
