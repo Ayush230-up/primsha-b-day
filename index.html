@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>Happy Birthday! 🌸✨</title>
+  <title>Happy Birthday Prishu! 🎀🎂✨</title>
   <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
   <style>
     * {
@@ -18,174 +18,261 @@
       height: 100%;
       overflow: hidden;
       font-family: 'Quicksand', sans-serif;
-      background: #ffe3ec;
-    }
-
-    /* Ambient glow elements */
-    .glow-sphere {
-      position: fixed;
-      border-radius: 50%;
-      filter: blur(50px);
-      opacity: 0.6;
-      pointer-events: none;
-      z-index: 1;
-    }
-    .glow-1 {
-      width: 250px;
-      height: 250px;
-      background: #ffb8d2;
-      top: -40px;
-      left: -40px;
-    }
-    .glow-2 {
-      width: 300px;
-      height: 300px;
-      background: #c3b5ff;
-      bottom: -60px;
-      right: -60px;
-    }
-
-    /* Page Slider Layout */
-    .screen-slider {
-      display: flex;
-      width: 300vw;
-      height: 100vh;
-      height: 100dvh;
-      transition: transform 0.65s cubic-bezier(0.65, 0, 0.35, 1);
+      background: radial-gradient(circle at center, #fff0f5 0%, #ffd6e7 60%, #fbcfe8 100%);
       position: relative;
-      z-index: 10;
     }
 
-    .slide {
+    /* Continuous Gentle Rain */
+    .rain-item {
+      position: fixed;
+      top: -40px;
+      font-size: 1.4rem;
+      pointer-events: none;
+      z-index: 2;
+      animation: rainDown linear infinite;
+    }
+
+    @keyframes rainDown {
+      0% {
+        transform: translateY(-20px) rotate(0deg);
+        opacity: 0;
+      }
+      15% {
+        opacity: 0.85;
+      }
+      90% {
+        opacity: 0.85;
+      }
+      100% {
+        transform: translateY(105vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    /* Scene Management */
+    .scene-viewport {
       width: 100vw;
       height: 100vh;
       height: 100dvh;
+      position: relative;
+      overflow: hidden;
+      z-index: 10;
+    }
+
+    .page {
+      position: absolute;
+      inset: 0;
       display: flex;
       justify-content: center;
       align-items: center;
       padding: 20px;
+      transition: transform 0.65s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.65s ease;
+      will-change: transform, opacity;
     }
 
-    /* Floating Card */
+    /* Directional Transitions */
+    .page.current {
+      transform: translate3d(0, 0, 0) scale(1);
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .page.out-up {
+      transform: translate3d(0, -100%, 0) scale(0.92);
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .page.out-left {
+      transform: translate3d(-100%, 0, 0) scale(0.92);
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .page.out-right {
+      transform: translate3d(100%, 0, 0) scale(0.92);
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .page.in-right {
+      transform: translate3d(100%, 0, 0) scale(0.92);
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .page.in-down {
+      transform: translate3d(0, 100%, 0) scale(0.92);
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    /* Card Box */
     .cute-card {
       width: 100%;
-      max-width: 380px;
-      background: rgba(255, 255, 255, 0.88);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border-radius: 32px;
-      padding: 35px 24px;
+      max-width: 375px;
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-radius: 30px;
+      padding: 34px 22px;
       text-align: center;
-      box-shadow: 0 20px 40px rgba(255, 126, 179, 0.22), 0 0 0 1px rgba(255, 255, 255, 0.9);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+      border: 2px solid rgba(255, 255, 255, 0.95);
+      box-shadow: 0 16px 36px rgba(244, 114, 182, 0.28), 0 0 0 6px rgba(255, 255, 255, 0.4);
     }
 
     .emoji-hero {
-      font-size: 3.8rem;
+      font-size: 3.4rem;
       line-height: 1;
-      margin-bottom: 15px;
-      animation: gentleBounce 2.4s ease-in-out infinite;
+      margin-bottom: 12px;
+      display: inline-block;
+      animation: softBob 2s ease-in-out infinite;
     }
 
-    @keyframes gentleBounce {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-8px); }
+    @keyframes softBob {
+      0%, 100% { transform: translateY(0) scale(1); }
+      50% { transform: translateY(-7px) scale(1.04); }
     }
 
     .badge {
       display: inline-block;
-      padding: 6px 14px;
-      background: #ffe8f0;
-      color: #ff4081;
+      padding: 5px 14px;
+      background: #ffe4ef;
+      color: #ff3377;
       border-radius: 50px;
-      font-size: 0.8rem;
+      font-size: 0.78rem;
       font-weight: 700;
-      letter-spacing: 0.5px;
-      margin-bottom: 14px;
+      letter-spacing: 0.6px;
+      margin-bottom: 12px;
       text-transform: uppercase;
     }
 
     h1 {
       font-family: 'Fredoka', sans-serif;
-      font-size: 1.75rem;
-      color: #332d3b;
-      margin-bottom: 14px;
+      font-size: 1.65rem;
+      color: #2e2633;
+      margin-bottom: 12px;
       line-height: 1.25;
     }
 
     p {
-      color: #595261;
-      font-size: 1rem;
+      color: #554a5c;
+      font-size: 0.98rem;
       line-height: 1.65;
-      margin-bottom: 25px;
+      margin-bottom: 24px;
       font-weight: 600;
     }
 
     .btn {
       width: 100%;
-      max-width: 250px;
-      padding: 15px 24px;
-      background: linear-gradient(135deg, #ff6b8b, #ff8e53);
+      max-width: 260px;
+      padding: 14px 20px;
+      background: linear-gradient(135deg, #ff6584, #ff8da1);
       color: #ffffff;
       border: none;
       border-radius: 50px;
-      font-size: 1.02rem;
+      font-size: 0.98rem;
       font-weight: 700;
       cursor: pointer;
-      box-shadow: 0 10px 22px rgba(255, 107, 139, 0.38);
-      transition: transform 0.15s ease, box-shadow 0.15s ease;
+      box-shadow: 0 8px 20px rgba(255, 101, 132, 0.35);
+      transition: transform 0.12s ease;
       touch-action: manipulation;
     }
 
     .btn:active {
-      transform: scale(0.96);
-      box-shadow: 0 4px 12px rgba(255, 107, 139, 0.3);
+      transform: scale(0.95);
     }
 
-    /* Page Dots Indicator */
-    .indicators {
-      position: fixed;
-      bottom: 25px;
-      left: 0;
-      right: 0;
-      display: flex;
-      justify-content: center;
-      gap: 8px;
-      z-index: 20;
+    /* Interactive Candle Layer */
+    .candle-setup {
+      position: relative;
+      margin: 15px auto 20px;
+      cursor: pointer;
+      display: inline-block;
+      user-select: none;
     }
 
-    .dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: rgba(255, 255, 255, 0.5);
-      border: 1px solid rgba(0, 0, 0, 0.05);
-      transition: all 0.3s ease;
+    .cake-base {
+      font-size: 4rem;
+      position: relative;
+      z-index: 1;
+      display: block;
     }
 
-    .dot.active {
-      width: 22px;
-      border-radius: 10px;
-      background: #ff4081;
+    .candle-stick {
+      width: 12px;
+      height: 38px;
+      background: repeating-linear-gradient(45deg, #ff4081, #ff4081 5px, #ffffff 5px, #ffffff 10px);
+      border-radius: 6px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 2;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.15);
     }
 
-    /* Burst Emoji Particles */
-    .burst-item {
+    .candle-flame {
+      width: 16px;
+      height: 24px;
+      background: radial-gradient(circle at bottom, #ffee55 0%, #ff7700 70%, transparent 100%);
+      border-radius: 50% 50% 35% 35%;
+      margin: 0 auto -2px;
+      position: relative;
+      z-index: 3;
+      filter: drop-shadow(0 0 8px #ffb300);
+      animation: flicker 1s infinite alternate ease-in-out;
+      transition: opacity 0.4s ease, transform 0.4s ease;
+    }
+
+    @keyframes flicker {
+      0% { transform: scale(1) rotate(-2deg); opacity: 0.95; }
+      50% { transform: scale(1.08) rotate(3deg); opacity: 1; }
+      100% { transform: scale(0.96) rotate(-1deg); opacity: 0.9; }
+    }
+
+    .candle-flame.blown-out {
+      opacity: 0 !important;
+      transform: translateY(-8px) scale(0.2) !important;
+    }
+
+    .smoke {
+      position: absolute;
+      top: -20px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 1.4rem;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.5s ease;
+    }
+
+    .smoke.show {
+      animation: riseSmoke 1.8s forwards;
+    }
+
+    @keyframes riseSmoke {
+      0% { opacity: 0.8; transform: translate(-50%, 0) scale(0.8); }
+      100% { opacity: 0; transform: translate(-50%, -35px) scale(1.6); }
+    }
+
+    /* Party Shower */
+    .burst-rain {
       position: fixed;
       pointer-events: none;
       z-index: 9999;
-      animation: burstFloat 2.2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+      animation: explodeThenRain 2.8s cubic-bezier(0.15, 0.85, 0.35, 1) forwards;
     }
 
-    @keyframes burstFloat {
+    @keyframes explodeThenRain {
       0% {
-        transform: translate(0, 0) scale(0.6);
+        transform: translate(0, 0) scale(0.4);
+        opacity: 1;
+      }
+      35% {
+        transform: translate(var(--tx), var(--ty)) scale(1.4) rotate(var(--tr));
         opacity: 1;
       }
       100% {
-        transform: translate(var(--tx), var(--ty)) scale(1.4) rotate(var(--tr));
+        transform: translate(var(--tx), calc(var(--ty) + 400px)) scale(1) rotate(calc(var(--tr) + 180deg));
         opacity: 0;
       }
     }
@@ -193,111 +280,152 @@
 </head>
 <body>
 
-  <div class="glow-sphere glow-1"></div>
-  <div class="glow-sphere glow-2"></div>
+  <div id="rainContainer"></div>
 
-  <div class="screen-slider" id="slider">
-
-    <!-- Screen 1 -->
-    <div class="slide">
+  <div class="scene-viewport">
+    
+    <!-- Page 1 -->
+    <div class="page current" id="p1">
       <div class="cute-card">
-        <div class="emoji-hero">💌✨</div>
-        <span class="badge">A Quick Reminder</span>
-        <h1>Today Is Special!</h1>
-        <p>Before anyone else says it, I wanted to build this tiny space just to celebrate how incredible you are.</p>
-        <button class="btn" onclick="moveToSlide(1)">Next Page 👉</button>
+        <div class="emoji-hero">🎂🎀✨</div>
+        <span class="badge">Happy Birthday!</span>
+        <h1>Hey Prishu! 🌸</h1>
+        <p>A super special day just started! I built this tiny cute corner just to wish you the happiest birthday ever.</p>
+        <button class="btn" onclick="goToStep(1, 2, 'slideUp')">Slide Next 👆</button>
       </div>
     </div>
 
-    <!-- Screen 2 -->
-    <div class="slide">
+    <!-- Page 2 -->
+    <div class="page in-right" id="p2">
       <div class="cute-card">
-        <div class="emoji-hero">🥺🍰</div>
-        <span class="badge">Heartfelt Note</span>
-        <h1>Happy Birthday!</h1>
-        <p>Thank you for bringing so much comfort, fun, and light into every day. You're truly one of a kind, and I'm lucky to have you as my best friend.</p>
-        <button class="btn" onclick="moveToSlide(2)">Final Surprise 🎁</button>
+        <div class="emoji-hero">🥺🎀💖</div>
+        <span class="badge">Always Grateful</span>
+        <h1>You're One Of A Kind</h1>
+        <p>Thank you for all the endless laughs, random talks, and for always being my sweetest safe place. You make every day lighter.</p>
+        <button class="btn" onclick="goToStep(2, 3, 'slideLeft')">Make A Wish 👉</button>
       </div>
     </div>
 
-    <!-- Screen 3 -->
-    <div class="slide">
+    <!-- Page 3: Blow Candle -->
+    <div class="page in-down" id="p3">
       <div class="cute-card">
-        <div class="emoji-hero">🎂🎉</div>
-        <span class="badge">Big Wishes</span>
-        <h1>Always Keep Shining</h1>
-        <p>May this year bring you all the peace, happiness, and big wins you've been working so hard for. Have the best birthday ever!</p>
-        <button class="btn" onclick="triggerParty()">Tap For Hugs & Confetti 🫂✨</button>
+        <span class="badge">A Special Moment</span>
+        <h1 id="wishTitle">Make A Wish! ✨</h1>
+        
+        <div class="candle-setup" onclick="blowCandle()">
+          <div class="smoke" id="smoke">💨</div>
+          <div class="candle-flame" id="flame"></div>
+          <div class="candle-stick"></div>
+          <span class="cake-base">🎂🎀</span>
+        </div>
+
+        <p id="wishDesc">Close your eyes, make a sweet wish, and tap the flame to blow out the candle!</p>
+        <button class="btn" id="candleNextBtn" style="display: none;" onclick="goToStep(3, 4, 'slideRight')">Final Hugs & Love 👉</button>
       </div>
     </div>
 
-  </div>
+    <!-- Page 4: Grand Finale -->
+    <div class="page in-right" id="p4">
+      <div class="cute-card">
+        <div class="emoji-hero">🍰🎀🎉</div>
+        <span class="badge">Forever & Always</span>
+        <h1>May Every Dream Bloom!</h1>
+        <p>Here’s to pure joy, huge smiles, and achieving every goal you ever set eyes on. Happy Birthday, Prishu! 🤍</p>
+        <button class="btn" onclick="triggerPartyShower()">Shower Hugs & Love 🫂🎀🌸</button>
+      </div>
+    </div>
 
-  <div class="indicators">
-    <div class="dot active" id="dot0"></div>
-    <div class="dot" id="dot1"></div>
-    <div class="dot" id="dot2"></div>
   </div>
 
   <script>
-    const slider = document.getElementById('slider');
+    // Continuous Gentle Emoji Rain
+    const rainContainer = document.getElementById('rainContainer');
+    const rainSymbols = ['🎀', '🌸', '✨', '🎂', '💖', '⭐', '🎈'];
 
-    function moveToSlide(index) {
-      slider.style.transform = `translateX(-${index * 100}vw)`;
-      
-      document.querySelectorAll('.dot').forEach((d, i) => {
-        d.classList.toggle('active', i === index);
-      });
+    function spawnRaindrop() {
+      const drop = document.createElement('div');
+      drop.className = 'rain-item';
+      drop.innerText = rainSymbols[Math.floor(Math.random() * rainSymbols.length)];
+      drop.style.left = Math.random() * 96 + 'vw';
+      drop.style.animationDuration = (Math.random() * 2 + 3.2) + 's';
+      drop.style.fontSize = (Math.random() * 0.7 + 1.1) + 'rem';
+      rainContainer.appendChild(drop);
 
-      miniSparkle();
+      setTimeout(() => drop.remove(), 5500);
     }
 
-    function triggerParty() {
-      const items = ['🌸', '✨', '💖', '🎂', '🎉', '🫂', '⭐', '🎈'];
-      const count = 40;
+    setInterval(spawnRaindrop, 220);
 
-      for (let i = 0; i < count; i++) {
+    // Directional Slide Navigation
+    function goToStep(from, to, direction) {
+      const currentPage = document.getElementById(`p${from}`);
+      const nextPage = document.getElementById(`p${to}`);
+
+      if (direction === 'slideUp') {
+        currentPage.className = 'page out-up';
+        nextPage.className = 'page current';
+      } else if (direction === 'slideLeft') {
+        currentPage.className = 'page out-left';
+        nextPage.className = 'page current';
+      } else if (direction === 'slideRight') {
+        currentPage.className = 'page out-right';
+        nextPage.className = 'page current';
+      }
+    }
+
+    // Candle Blow Interaction
+    let candleBlown = false;
+    function blowCandle() {
+      if (candleBlown) return;
+      candleBlown = true;
+
+      const flame = document.getElementById('flame');
+      const smoke = document.getElementById('smoke');
+      const wishTitle = document.getElementById('wishTitle');
+      const wishDesc = document.getElementById('wishDesc');
+      const nextBtn = document.getElementById('candleNextBtn');
+
+      flame.classList.add('blown-out');
+      smoke.classList.add('show');
+
+      wishTitle.innerText = "Wish Sent To The Stars! 🌟";
+      wishDesc.innerText = "May your wish come true and brighten everything around you! ✨";
+      nextBtn.style.display = 'inline-block';
+
+      // Confetti burst on blow
+      triggerPartyShower();
+    }
+
+    // Grand Celebration Burst
+    function triggerPartyShower() {
+      const festivalEmojis = ['🎀', '🎂', '🌸', '🫂', '💖', '✨', '🧁', '⭐', '🎉'];
+      const total = 45;
+
+      for (let i = 0; i < total; i++) {
         setTimeout(() => {
           const el = document.createElement('div');
-          el.className = 'burst-item';
-          el.innerText = items[Math.floor(Math.random() * items.length)];
+          el.className = 'burst-rain';
+          el.innerText = festivalEmojis[Math.floor(Math.random() * festivalEmojis.length)];
 
           const startX = window.innerWidth / 2;
-          const startY = window.innerHeight * 0.7;
+          const startY = window.innerHeight * 0.65;
 
           const angle = Math.random() * 2 * Math.PI;
-          const distance = Math.random() * 220 + 80;
+          const distance = Math.random() * 160 + 60;
           const tx = Math.cos(angle) * distance;
-          const ty = Math.sin(angle) * distance - 80;
-          const tr = (Math.random() * 90 - 45) + 'deg';
+          const ty = Math.sin(angle) * distance - 60;
+          const tr = (Math.random() * 120 - 60) + 'deg';
 
           el.style.left = startX + 'px';
           el.style.top = startY + 'px';
           el.style.setProperty('--tx', tx + 'px');
           el.style.setProperty('--ty', ty + 'px');
           el.style.setProperty('--tr', tr);
-          el.style.fontSize = (Math.random() * 1.2 + 1.2) + 'rem';
+          el.style.fontSize = (Math.random() * 1.1 + 1.3) + 'rem';
 
           document.body.appendChild(el);
-          setTimeout(() => el.remove(), 2200);
-        }, i * 25);
-      }
-    }
-
-    function miniSparkle() {
-      const sparks = ['✨', '💕', '🌸'];
-      for (let i = 0; i < 6; i++) {
-        const el = document.createElement('div');
-        el.className = 'burst-item';
-        el.innerText = sparks[Math.floor(Math.random() * sparks.length)];
-        el.style.left = (window.innerWidth / 2 + (Math.random() * 140 - 70)) + 'px';
-        el.style.top = (window.innerHeight * 0.6) + 'px';
-        el.style.setProperty('--tx', (Math.random() * 100 - 50) + 'px');
-        el.style.setProperty('--ty', (-Math.random() * 120 - 40) + 'px');
-        el.style.setProperty('--tr', '15deg');
-        el.style.fontSize = '1.3rem';
-        document.body.appendChild(el);
-        setTimeout(() => el.remove(), 1600);
+          setTimeout(() => el.remove(), 2800);
+        }, i * 22);
       }
     }
   </script>
